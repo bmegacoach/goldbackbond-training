@@ -5,6 +5,7 @@ import {
   HelpCircle,
   GitCompare,
   DollarSign,
+  MonitorSmartphone,
   Award,
   Menu,
   X,
@@ -21,6 +22,7 @@ const navItems: { id: ViewType; label: string; shortLabel: string; icon: React.E
   { id: 'module-3', label: 'FAQ & Rebuttals', shortLabel: 'Module 3', icon: HelpCircle },
   { id: 'module-4', label: 'Product Comparison', shortLabel: 'Module 4', icon: GitCompare },
   { id: 'module-5', label: 'Referral Fees', shortLabel: 'Module 5', icon: DollarSign },
+  { id: 'module-6', label: 'CRM Platform', shortLabel: 'Module 6', icon: MonitorSmartphone },
 ];
 
 export function Sidebar() {

@@ -20,6 +20,7 @@ const initialChecklistItems: ChecklistItem[] = [
   { id: 'module-3', label: 'Module 3: FAQ & Rebuttals', completed: false, moduleId: 3 },
   { id: 'module-4', label: 'Module 4: Product Comparison Matrix', completed: false, moduleId: 4 },
   { id: 'module-5', label: 'Module 5: Referral Fee Schedule', completed: false, moduleId: 5 },
+  { id: 'module-6', label: 'Module 6: CRM Platform Training', completed: false, moduleId: 6 },
   { id: 'contract', label: 'Signed Contractor Agreement (via OpenSign)', completed: false, isExternal: true },
 ];
 

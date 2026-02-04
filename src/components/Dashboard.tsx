@@ -8,6 +8,7 @@ import {
   HelpCircle,
   GitCompare,
   DollarSign,
+  MonitorSmartphone,
 } from 'lucide-react';
 import { useTraining } from '../context/TrainingContext';
 import { ProgressRing } from './ProgressRing';
@@ -44,6 +45,12 @@ const moduleInfo: { id: ViewType; title: string; icon: React.ElementType; descri
     title: 'Referral Fee Schedule',
     icon: DollarSign,
     description: 'Tiered compensation structure and bonuses',
+  },
+  {
+    id: 'module-6',
+    title: 'CRM Platform Training',
+    icon: MonitorSmartphone,
+    description: 'Master the GoldBackBond Agency CRM for daily operations',
   },
 ];
 
@@ -159,6 +166,7 @@ export function Dashboard() {
           <ChecklistItem id="module-3" label="Module 3: FAQ & Rebuttals" />
           <ChecklistItem id="module-4" label="Module 4: Product Comparison Matrix" />
           <ChecklistItem id="module-5" label="Module 5: Referral Fee Schedule" />
+          <ChecklistItem id="module-6" label="Module 6: CRM Platform Training" />
           <ChecklistItem
             id="contract"
             label="Signed Contractor Agreement (via OpenSign)"
