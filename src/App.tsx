@@ -1,7 +1,7 @@
 import { TrainingProvider, useTraining } from './context/TrainingContext';
 import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './components/Dashboard';
-import { Module1, Module2, Module3, Module4, Module5, Module6, Module7 } from './components/modules';
+import { Module1, Module2, Module3, Module4, Module5, Module6, Module7, Module8 } from './components/modules';
 
 function MainContent() {
   const { currentView } = useTraining();
@@ -24,6 +24,8 @@ function MainContent() {
         return <Module6 />;
       case 'module-7':
         return <Module7 />;
+      case 'module-8':
+        return <Module8 />;
       default:
         return <Dashboard />;
     }

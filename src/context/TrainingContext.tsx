@@ -22,6 +22,7 @@ const initialChecklistItems: ChecklistItem[] = [
   { id: 'module-5', label: 'Module 5: Referral Fee Schedule', completed: false, moduleId: 5 },
   { id: 'module-6', label: 'Module 6: CRM Platform Training', completed: false, moduleId: 6 },
   { id: 'module-7', label: 'Module 7: AI Sales Simulator', completed: false, moduleId: 7 },
+  { id: 'module-8', label: 'Module 8: AI Mentorship Hub', completed: false, moduleId: 8 },
   { id: 'contract', label: 'Signed Contractor Agreement (via OpenSign)', completed: false, isExternal: true },
 ];
 

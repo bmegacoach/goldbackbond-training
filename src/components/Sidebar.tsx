@@ -9,7 +9,8 @@ import {
   Award,
   Menu,
   X,
-  Bot
+  Bot,
+  Activity
 } from 'lucide-react';
 import { useTraining } from '../context/TrainingContext';
 import { ProgressRing } from './ProgressRing';
@@ -25,6 +26,7 @@ const navItems: { id: ViewType; label: string; shortLabel: string; icon: React.E
   { id: 'module-5', label: 'Referral Fees', shortLabel: 'Module 5', icon: DollarSign },
   { id: 'module-6', label: 'CRM Platform', shortLabel: 'Module 6', icon: MonitorSmartphone },
   { id: 'module-7', label: 'AI Sales Simulator', shortLabel: 'Module 7', icon: Bot },
+  { id: 'module-8', label: 'AI Mentorship Hub', shortLabel: 'Module 8', icon: Activity },
 ];
 
 export function Sidebar() {

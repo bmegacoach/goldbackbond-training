@@ -85,6 +85,85 @@ You MUST respond in strict JSON format:
     }
 });
 
+app.post('/api/ai-mentor-checkin', async (req, res) => {
+    try {
+        const { crmData, weakAreas, messages } = req.body;
+
+        const systemPrompt = `You are the ELITE SALES MENTOR for a high-ticket Goldbackbond agent.
+You care deeply about the agent's lifestyle goal: "${crmData.lifestyleGoal}".
+Because you care, you are ruthless about their metrics. 
+Today's metrics: ${crmData.callsMade}/${crmData.targetCalls} calls made. ${crmData.closedDeals} closed deals.
+Their identified weak areas in product knowledge: ${weakAreas.join(', ')}.
+
+### DIRECTIVES:
+1. Compare their effort (${crmData.callsMade} calls) to their goal ("${crmData.lifestyleGoal}"). If calls are low, be aggressively motivational ("You think 40 calls buys a house?").
+2. Ask them to practice or explain one of their weak areas (${weakAreas.join(', ')}).
+3. Keep responses conversational and punchy.
+
+### RESPONSE FORMAT:
+Respond with strict JSON:
+{
+  "reply": "Your ruthless but caring motivational check-in response."
+}`;
+
+        const { text } = await generateText({
+            model: google('gemini-1.5-pro'),
+            system: systemPrompt,
+            messages,
+        });
+
+        const parsed = JSON.parse(text);
+        res.status(200).json(parsed);
+
+    } catch (error) {
+        console.error('Error in Mentor Checkin API:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.post('/api/ai-tier-test', async (req, res) => {
+    try {
+        const { tier, weakAreas, messages } = req.body;
+        
+        const tierFocus = tier === 1 ? "Fundamentals: Peg, Custody, Basic Tokenomics" : 
+                          tier === 2 ? "Mechanics: 1/3/5/10 year staking terms, 30-day grace period, 70% LTV" :
+                          "Elite: Risk Reversals, Institutional Objections, Federal Reserve";
+
+        const systemPrompt = `You are a strict EXAMINER for Goldbackbond's internal certification.
+The agent is currently on TIER ${tier} testing.
+Focus topic for this tier: ${tierFocus}.
+Their known weak areas: ${weakAreas.join(', ')}.
+
+### DIRECTIVES:
+1. If this is the start of the chat, ask a highly specific, difficult question regarding the Tier ${tier} constraints or their weak areas.
+2. If the user is responding, evaluate their answer strictly against actual Goldbackbond constraints (e.g. 1/3/5/10 year limits, 30-day grace period vs liquidation).
+3. If they pass the question, return passed: true. If they fail, return passed: false and identify what new weak area they missed.
+
+### RESPONSE FORMAT:
+{
+  "reply": "Your dialogue, either asking the question or responding to them.",
+  "evaluation": {
+    "passed": true|false|null (null if you just asked a question and are waiting for an answer),
+    "feedback": "Why they failed or succeeded.",
+    "newWeakArea": "A short string (e.g. '30-day grace period') if they failed a specific concept, otherwise null"
+  }
+}`;
+
+        const { text } = await generateText({
+            model: google('gemini-1.5-pro'),
+            system: systemPrompt,
+            messages,
+        });
+
+        const parsed = JSON.parse(text);
+        res.status(200).json(parsed);
+
+    } catch (error) {
+        console.error('Error in Tier Test API:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`AI Coach Backend running on http://localhost:${PORT}`);

@@ -5,3 +5,4 @@ export { Module4 } from './Module4';
 export { Module5 } from './Module5';
 export { Module6 } from './Module6';
 export { Module7 } from './Module7';
+export { Module8 } from './Module8';
