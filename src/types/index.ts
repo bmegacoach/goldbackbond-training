@@ -21,4 +21,4 @@ export interface TrainingState {
   currentModuleId: number | null;
 }
 
-export type ViewType = 'dashboard' | 'module-1' | 'module-2' | 'module-3' | 'module-4' | 'module-5' | 'module-6';
+export type ViewType = 'dashboard' | 'module-1' | 'module-2' | 'module-3' | 'module-4' | 'module-5' | 'module-6' | 'module-7';

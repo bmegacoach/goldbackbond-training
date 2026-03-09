@@ -1,5 +1,45 @@
 import { ModuleLayout } from '../ModuleLayout';
 import { DollarSign, TrendingUp, Gift, Calculator, AlertCircle } from 'lucide-react';
+import { Quiz, Question } from '../Quiz';
+
+const module5Questions: Question[] = [
+  {
+    id: 1,
+    question: "At what Monthly Gross Volume do you achieve the highest Referral Fee Rate of 5.0%?",
+    options: [
+      "$100,000+",
+      "$500,000+",
+      "$1,000,000+",
+      "$5,000,000+"
+    ],
+    correctAnswer: 2,
+    explanation: "You earn the maximum 5.0% referral fee when your cumulative gross volume for the calendar month hits $1,000,000 or more."
+  },
+  {
+    id: 2,
+    question: "How is the $100/month Technology Fee handled?",
+    options: [
+      "It must be paid upfront every year via credit card",
+      "It is deducted from your referral fees, but waived if you achieve $3,000+ monthly volume for 3 consecutive months",
+      "It is charged directly to the client's investment package",
+      "It is a completely optional feature you only pay if you use the CRM"
+    ],
+    correctAnswer: 1,
+    explanation: "The tech fee is automatically deducted from your referral fees, however, a waiver triggers automatically if you maintain $3,000+ in gross monthly volume for 3 consecutive months."
+  },
+  {
+    id: 3,
+    question: "What is the token bonus for a Debentures Sale Value of $600,000?",
+    options: [
+      "5,000 USDGB tokens",
+      "10,000 USDGB tokens",
+      "15,000 USDGB tokens",
+      "35,000 USDGB tokens"
+    ],
+    correctAnswer: 2,
+    explanation: "A sale of $600,000 falls strictly into the $500,000 - $1,999,999 bracket, yielding a bonus of 15,000 USDGB tokens."
+  }
+];
 
 export function Module5() {
   return (
@@ -231,6 +271,13 @@ export function Module5() {
             </div>
           </div>
         </section>
+
+        {/* Quiz Section */}
+        <Quiz
+          moduleId="module-5"
+          questions={module5Questions}
+          passingScore={100}
+        />
       </div>
     </ModuleLayout>
   );

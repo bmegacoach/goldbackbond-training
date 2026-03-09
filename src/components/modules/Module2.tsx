@@ -148,7 +148,7 @@ export function Module2() {
                   2
                 </span>
                 <span className="text-neutral-700">
-                  Staked tokens provide up to 3x collateral value to lenders
+                  <strong>Flexible Lock Terms:</strong> Staking certificates are locked for 1, 3, 5, or 10 years, often required by institutional lenders.
                 </span>
               </li>
               <li className="flex items-start gap-3">
@@ -156,7 +156,7 @@ export function Module2() {
                   3
                 </span>
                 <span className="text-neutral-700">
-                  Lenders evaluate collateral and provide loans at up to 70% LTV
+                  <strong>70% LTV Loans:</strong> Lenders evaluate the gold-backed collateral to provide loans at up to 70% LTV.
                 </span>
               </li>
               <li className="flex items-start gap-3">
@@ -164,7 +164,7 @@ export function Module2() {
                   4
                 </span>
                 <span className="text-neutral-700">
-                  No passive yield paid by Goldbackbond corporate treasury
+                  <strong>No Auto-Liquidations:</strong> Defaults trigger a guardian-controlled <strong>30-day grace period</strong>. You do NOT get liquidated by price-bots.
                 </span>
               </li>
             </ul>

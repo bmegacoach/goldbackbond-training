@@ -1,5 +1,45 @@
 import { ExternalLink, Cpu, LayoutDashboard, Users, FileText, TrendingUp, Wallet, HeadphonesIcon, BarChart3, Zap, CheckCircle2, Award } from 'lucide-react';
 import { ModuleLayout } from '../ModuleLayout';
+import { Quiz, Question } from '../Quiz';
+
+const module6Questions: Question[] = [
+  {
+    id: 1,
+    question: "When adding a new Lead, what specific 'Goldbackbond Allocation Data' is marked as CRITICAL to capture?",
+    options: [
+      "The client's favorite color and hobbies",
+      "Only the estimated pipeline value",
+      "Buyer Wallet Address, Allocation Amount, Sales Terms, and Payment Type",
+      "Their social security number and blood type"
+    ],
+    correctAnswer: 2,
+    explanation: "Capturing the Buyer Wallet Address, Allocation Amount, Sales Terms, and Payment Type is critical because this data syncs directly to the Owner's smart contract deployment dashboard for token minting."
+  },
+  {
+    id: 2,
+    question: "How are CRM subscriptions handled for Independent Sales Agents?",
+    options: [
+      "Agents must pay $50/month upfront before they can access the leads dashboard",
+      "Agents must buy their own external CRM license",
+      "Access is complimentary as part of the contractor agreement, including all premium features",
+      "Agents get a 7-day free trial, then it's deducted from commissions"
+    ],
+    correctAnswer: 2,
+    explanation: "All Independent Sales Agents receive complimentary access to the CRM platform with unlimited storage and premium features out-of-the-box."
+  },
+  {
+    id: 3,
+    question: "What is the security protocol regarding Payment Processing?",
+    options: [
+      "Agents should securely write down the client's credit card number on a notepad",
+      "Payments are handled through Stripe (PCI-DSS compliant). Agents never handle sensitive payment info directly.",
+      "Agents process payments only using their personal Venmo",
+      "Clients email their banking details to the agent's inbox"
+    ],
+    correctAnswer: 1,
+    explanation: "All payments route through Stripe. An agent simply generates the payment link via the CRM, and the client securely enters their own details."
+  }
+];
 
 export function Module6() {
   return (
@@ -166,14 +206,14 @@ export function Module6() {
           <p className="text-gray-600">
             The Lead Mastery module is your first touchpoint with potential customers. Effective lead management is crucial for building a strong sales pipeline.
           </p>
-          
+
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Adding a New Lead</h3>
             <ol className="list-decimal list-inside space-y-2 text-gray-700 ml-4">
               <li>Click "Add New Lead" from the Dashboard or Leads page</li>
-              <li>Enter required information: Name, Email, Phone</li>
-              <li>Add optional data: Source, Interest Level, Notes</li>
-              <li>Set lead status (New, Contacted, Qualified, Unqualified)</li>
+              <li>Enter required personal information: Name, Email, Phone</li>
+              <li><strong>CRITICAL:</strong> Input the Goldbackbond Allocation Data: Buyer Wallet Address (0x...), Allocation Amount, Sales Terms, and Payment Type (FIAT/CRYPTO). This data is synced directly to the Owner's smart contract deployment dashboard.</li>
+              <li>Set lead pipeline stage and estimated value</li>
               <li>Assign follow-up date and time</li>
             </ol>
           </div>
@@ -719,6 +759,13 @@ export function Module6() {
           <ExternalLink className="w-4 h-4" />
         </a>
       </div>
+
+      {/* Quiz Section */}
+      <Quiz
+        moduleId="module-6"
+        questions={module6Questions}
+        passingScore={100}
+      />
     </ModuleLayout>
   );
 }

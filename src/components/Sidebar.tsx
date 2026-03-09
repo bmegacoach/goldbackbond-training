@@ -9,6 +9,7 @@ import {
   Award,
   Menu,
   X,
+  Bot
 } from 'lucide-react';
 import { useTraining } from '../context/TrainingContext';
 import { ProgressRing } from './ProgressRing';
@@ -23,6 +24,7 @@ const navItems: { id: ViewType; label: string; shortLabel: string; icon: React.E
   { id: 'module-4', label: 'Product Comparison', shortLabel: 'Module 4', icon: GitCompare },
   { id: 'module-5', label: 'Referral Fees', shortLabel: 'Module 5', icon: DollarSign },
   { id: 'module-6', label: 'CRM Platform', shortLabel: 'Module 6', icon: MonitorSmartphone },
+  { id: 'module-7', label: 'AI Sales Simulator', shortLabel: 'Module 7', icon: Bot },
 ];
 
 export function Sidebar() {
@@ -77,11 +79,10 @@ export function Sidebar() {
                 setCurrentView(item.id);
                 setMobileMenuOpen(false);
               }}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 group ${
-                isActive
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200 group ${isActive
                   ? 'bg-gold-50 text-gold-700 border-l-[3px] border-gold-500 -ml-[3px] pl-[calc(0.75rem+3px)]'
                   : 'text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900'
-              }`}
+                }`}
             >
               <Icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-gold-600' : ''}`} />
               <span className="flex-1 text-sm font-medium truncate">{item.label}</span>
@@ -100,11 +101,10 @@ export function Sidebar() {
       {/* Certification Status */}
       <div className="p-4 border-t border-neutral-200">
         <div
-          className={`p-4 rounded-xl ${
-            isCertified
+          className={`p-4 rounded-xl ${isCertified
               ? 'bg-gradient-to-br from-gold-500 to-gold-400 text-white'
               : 'bg-neutral-100 text-neutral-600'
-          }`}
+            }`}
         >
           <div className="flex items-center gap-3">
             <Award className={`w-6 h-6 ${isCertified ? 'text-white' : 'text-neutral-400'}`} />
@@ -150,9 +150,8 @@ export function Sidebar() {
 
       {/* Mobile Sidebar */}
       <aside
-        className={`lg:hidden fixed top-0 left-0 bottom-0 w-72 bg-white z-50 transform transition-transform duration-300 ${
-          mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`lg:hidden fixed top-0 left-0 bottom-0 w-72 bg-white z-50 transform transition-transform duration-300 ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
       >
         <div className="flex flex-col h-full">
           <NavContent />

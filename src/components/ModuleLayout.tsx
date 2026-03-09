@@ -8,6 +8,7 @@ interface ModuleLayoutProps {
   moduleNumber: number;
   title: string;
   description: string;
+  videoUrl?: string; // Optional video embed for Phase 9 features
   children: ReactNode;
 }
 
@@ -16,6 +17,7 @@ export function ModuleLayout({
   moduleNumber,
   title,
   description,
+  videoUrl,
   children,
 }: ModuleLayoutProps) {
   const { setCurrentView, checklistItems, toggleChecklistItem } = useTraining();
@@ -53,30 +55,22 @@ export function ModuleLayout({
         </div>
       </div>
 
-      {/* Content */}
-      <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-        <div className="p-6 md:p-8">{children}</div>
-
-        {/* Footer with Mark Complete */}
-        <div className="border-t border-neutral-200 px-6 md:px-8 py-4 bg-neutral-50">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <p className="text-sm text-neutral-600">
-              {isCompleted
-                ? 'Great job! You have completed this module.'
-                : 'Mark this module as complete when you have reviewed all content.'}
-            </p>
-            <button
-              onClick={() => toggleChecklistItem(moduleId)}
-              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-200 ${
-                isCompleted
-                  ? 'bg-success text-white hover:bg-success/90'
-                  : 'btn-gold'
-              }`}
-            >
-              {isCompleted ? 'Completed' : 'Mark as Complete'}
-            </button>
-          </div>
+      {/* Video Content Container */}
+      {videoUrl && (
+        <div className="bg-black rounded-2xl shadow-md overflow-hidden mb-8 aspect-video">
+          <iframe
+            src={videoUrl}
+            title={`${title} Video`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full border-0"
+          />
         </div>
+      )}
+
+      {/* Content */}
+      <div className="bg-white rounded-2xl shadow-md overflow-hidden mb-8">
+        <div className="p-6 md:p-8">{children}</div>
       </div>
     </div>
   );
