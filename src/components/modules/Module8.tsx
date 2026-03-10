@@ -53,6 +53,9 @@ export function Module8() {
                 });
                 const data = await response.json();
                 setCheckinMessages([{ role: 'ai', content: data.reply }]);
+                if (data.scheduledNextSession) {
+                    setCrmData(agentCrmService.scheduleSession(data.scheduledNextSession.date, data.scheduledNextSession.time, data.scheduledNextSession.topic));
+                }
             } catch (err) {
                 setCheckinMessages([{ role: 'ai', content: "Mentor offline. Let's hit the phones anyway." }]);
             } finally {
@@ -79,6 +82,9 @@ export function Module8() {
             });
             const data = await response.json();
             setCheckinMessages(prev => [...prev, { role: 'ai', content: data.reply }]);
+            if (data.scheduledNextSession) {
+                setCrmData(agentCrmService.scheduleSession(data.scheduledNextSession.date, data.scheduledNextSession.time, data.scheduledNextSession.topic));
+            }
         } finally {
             setIsSimulating(false);
         }
@@ -159,6 +165,37 @@ export function Module8() {
                     </div>
                 ) : (
                     <>
+                        {crmData.upcomingSession && crmData.upcomingSession.status === 'pending' && (
+                            <div className="bg-gradient-to-r from-gold-600 to-gold-700 text-white rounded-xl p-4 mb-6 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                                <div className="flex items-start gap-3">
+                                    <Calendar className="w-6 h-6 flex-shrink-0" />
+                                    <div>
+                                        <h4 className="font-bold">Coach Alex Scheduled a Session</h4>
+                                        <p className="text-sm text-gold-50 mt-0.5">
+                                            {crmData.upcomingSession.date} at {crmData.upcomingSession.time} — <span className="font-semibold">Focus: {crmData.upcomingSession.topic}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2 w-full md:w-auto">
+                                    <button 
+                                        onClick={() => setCrmData(agentCrmService.acceptSession())}
+                                        className="flex-1 md:flex-none px-4 py-2 bg-white text-gold-800 rounded-lg font-bold text-sm hover:bg-gold-50 transition-colors shadow-sm"
+                                    >
+                                        Accept
+                                    </button>
+                                    <button 
+                                        onClick={() => {
+                                            setActiveTab('checkin');
+                                            setInputValue(`I am not available for the coaching session on ${crmData.upcomingSession?.date} at ${crmData.upcomingSession?.time}. Can we reschedule for `);
+                                        }}
+                                        className="flex-1 md:flex-none px-4 py-2 bg-gold-800 text-white border border-gold-500 rounded-lg font-bold text-sm hover:bg-gold-900 transition-colors shadow-sm"
+                                    >
+                                        Reschedule
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
                         {/* Tab Navigation */}
                         <div className="flex border-b border-neutral-200">
                             <button onClick={() => setActiveTab('hub')} className={`px-4 py-3 font-semibold text-sm border-b-2 transition-colors ${activeTab === 'hub' ? 'border-gold-600 text-gold-700' : 'border-transparent text-neutral-500 hover:text-neutral-800'}`}>Hub Dashboard</button>

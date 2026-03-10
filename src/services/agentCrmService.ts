@@ -5,6 +5,12 @@ export interface AgentMetrics {
     closedDeals: number;
     complianceCheckpointsPassed: number;
     lifestyleGoal: string;
+    upcomingSession: {
+        date: string;
+        time: string;
+        topic: string;
+        status: 'pending' | 'accepted' | 'negotiating';
+    } | null;
 }
 
 const STORAGE_KEY = 'gbb-agent-crm-metrics';
@@ -15,7 +21,8 @@ const initialMetrics: AgentMetrics = {
     appointmentsSet: 0,
     closedDeals: 0,
     complianceCheckpointsPassed: 0,
-    lifestyleGoal: "Buy a house for my parents"
+    lifestyleGoal: "Buy a house for my parents",
+    upcomingSession: null
 };
 
 class AgentCrmService {
@@ -63,11 +70,35 @@ class AgentCrmService {
         return metrics;
     }
 
+    scheduleSession(date: string, time: string, topic: string): AgentMetrics {
+        const metrics = this.getMetrics();
+        metrics.upcomingSession = { date, time, topic, status: 'pending' };
+        this.saveMetrics(metrics);
+        return metrics;
+    }
+
+    acceptSession(): AgentMetrics {
+        const metrics = this.getMetrics();
+        if (metrics.upcomingSession) {
+            metrics.upcomingSession.status = 'accepted';
+            this.saveMetrics(metrics);
+        }
+        return metrics;
+    }
+
+    clearSession(): AgentMetrics {
+        const metrics = this.getMetrics();
+        metrics.upcomingSession = null;
+        this.saveMetrics(metrics);
+        return metrics;
+    }
+
     resetDailyMetrics(): AgentMetrics {
         const metrics = this.getMetrics();
         const reset: AgentMetrics = {
             ...initialMetrics,
-            lifestyleGoal: metrics.lifestyleGoal // preserve goal
+            lifestyleGoal: metrics.lifestyleGoal, // preserve goal
+            upcomingSession: metrics.upcomingSession // preserve session
         };
         this.saveMetrics(reset);
         return reset;

@@ -98,12 +98,18 @@ Their identified weak areas in product knowledge: ${weakAreas.join(', ')}.
 ### DIRECTIVES:
 1. Compare their effort (${crmData.callsMade} calls) to their goal ("${crmData.lifestyleGoal}"). If calls are low, be aggressively motivational ("You think 40 calls buys a house?").
 2. Ask them to practice or explain one of their weak areas (${weakAreas.join(', ')}).
-3. Keep responses conversational and punchy.
+3. PROACTIVE SCHEDULING: If they are struggling, or if you haven't seen them in a while, YOU dictate when the next meeting is. Do not ask for permission. Tell them when you are meeting next.
+4. Keep responses conversational and punchy.
 
 ### RESPONSE FORMAT:
 Respond with strict JSON:
 {
-  "reply": "Your ruthless but caring motivational check-in response."
+  "reply": "Your ruthless but caring motivational check-in response. Include your declaration of the next meeting time if you are scheduling one.",
+  "scheduledNextSession": null OR {
+    "date": "Tomorrow" or specific date string,
+    "time": "10:00 AM" or specific time string,
+    "topic": "The focus of the next session"
+  }
 }`;
 
         const { text } = await generateText({
