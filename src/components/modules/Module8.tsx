@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { ModuleLayout } from '../ModuleLayout';
-import { Bot, User, Send, Target, TrendingUp, AlertTriangle, ShieldCheck, Activity } from 'lucide-react';
+import { Bot, User, Send, Target, TrendingUp, AlertTriangle, ShieldCheck, Activity, Phone, Calendar, Briefcase } from 'lucide-react';
 import { useTraining } from '../../context/TrainingContext';
+import agentCrmService, { AgentMetrics } from '../../services/agentCrmService';
 
 export function Module8() {
     const { toggleChecklistItem, checklistItems } = useTraining();
@@ -25,14 +26,8 @@ export function Module8() {
     const currentModule = checklistItems.find(i => i.id === 'module-8');
     const isCompleted = currentModule?.completed ?? false;
 
-    // Mock CRM Data
-    const crmData = {
-        callsMade: 42,
-        targetCalls: 100,
-        appointmentsSet: 1,
-        closedDeals: 0,
-        lifestyleGoal: "Buy a house for my parents next year"
-    };
+    // Live CRM Data State
+    const [crmData, setCrmData] = useState<AgentMetrics>(agentCrmService.getMetrics());
 
     const scrollToBottom = (ref: React.RefObject<HTMLDivElement>) => {
         ref.current?.scrollIntoView({ behavior: 'smooth' });
@@ -190,17 +185,32 @@ export function Module8() {
                                             </div>
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
-                                            <div className="p-3 bg-neutral-50 rounded-lg border border-neutral-100">
-                                                <p className="text-xs text-neutral-500 uppercase tracking-wider font-semibold">Appts Set</p>
+                                            <button onClick={() => setCrmData(agentCrmService.setAppointment())} className="p-3 bg-neutral-50 hover:bg-neutral-100 rounded-lg border border-neutral-200 transition-colors text-left flex flex-col justify-between h-full">
+                                                <div className="flex items-center justify-between w-full mb-2">
+                                                    <p className="text-xs text-neutral-500 uppercase tracking-wider font-semibold">Appts Set</p>
+                                                    <Calendar className="w-4 h-4 text-neutral-400" />
+                                                </div>
                                                 <p className="text-2xl font-bold text-neutral-900">{crmData.appointmentsSet}</p>
-                                            </div>
-                                            <div className="p-3 bg-neutral-50 rounded-lg border border-neutral-100">
-                                                <p className="text-xs text-neutral-500 uppercase tracking-wider font-semibold">Closed Won</p>
-                                                <p className="text-2xl font-bold text-neutral-900">{crmData.closedDeals}</p>
-                                            </div>
+                                                <span className="text-[10px] text-neutral-400 mt-1 uppercase font-bold">+ Log Appt</span>
+                                            </button>
+                                            <button onClick={() => setCrmData(agentCrmService.logClosedDeal())} className="p-3 bg-emerald-50 hover:bg-emerald-100 rounded-lg border border-emerald-200 transition-colors text-left flex flex-col justify-between h-full">
+                                                <div className="flex items-center justify-between w-full mb-2">
+                                                    <p className="text-xs text-emerald-600 uppercase tracking-wider font-semibold">Closed Won</p>
+                                                    <Briefcase className="w-4 h-4 text-emerald-500" />
+                                                </div>
+                                                <p className="text-2xl font-bold text-emerald-700">{crmData.closedDeals}</p>
+                                                <span className="text-[10px] text-emerald-600/70 mt-1 uppercase font-bold">+ Log Close</span>
+                                            </button>
                                         </div>
                                     </div>
-                                    <button onClick={startCheckin} className="w-full mt-6 py-2.5 bg-neutral-900 text-white rounded-lg font-medium hover:bg-neutral-800 transition-colors">Start Mentor Check-in</button>
+                                    <div className="grid grid-cols-2 gap-3 mt-6">
+                                        <button onClick={() => setCrmData(agentCrmService.logDial())} className="w-full py-2.5 bg-neutral-100 text-neutral-800 rounded-lg font-bold hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2">
+                                            <Phone className="w-4 h-4" /> Log Dial
+                                        </button>
+                                        <button onClick={startCheckin} className="w-full py-2.5 bg-neutral-900 text-white rounded-lg font-bold hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2">
+                                            <Activity className="w-4 h-4" /> Check-in
+                                        </button>
+                                    </div>
                                 </div>
 
                                 {/* Lifestyle & Knowledge */}
